@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container" >
+      <h2 v-if="articles.length != 0">Articulos encontrados con: <strong> {{idsearch}} </strong></h2>
+      <h2 v-if="articles.length == 0">No hay articulos con: <strong> {{idsearch}} </strong></h2>
+      
       <div class="row">
         <!-- Blog entries-->
         <div class="col-lg-8">
@@ -45,13 +48,12 @@ import CategoriesComponent from "./CategoriesComponent.vue";
 import SideComponent from "./SideComponent.vue";
 
 export default {
-  name: "Blog",
+  name: "Search",
   components: {
     NonFeatured,
     SearchComponent,
     CategoriesComponent,
     SideComponent,
-    
   },
   data() {
     return {
@@ -60,6 +62,7 @@ export default {
       url: Global.url,
       perPage: 4,
       currentPage: 1,
+      idsearch: String,
     };
   },
   computed: {
@@ -68,22 +71,28 @@ export default {
     },
   },
   mounted() {
-    this.getArticles();
-  },
-  methods: {
-    getArticles() {
-      axios.get(this.url + "articles").then((res) => {
-        if (res.data.status == "success") {
-          this.articles = res.data.articles;
-          this.updateItems();
-        }
-      });
+    this.idsearch = this.$route.params.idsearch;
+    this.getArticlesBiSearch();
     },
+  methods: {
     updateItems() {
       this.articleForPage = this.articles.slice(
         (this.currentPage - 1) * this.perPage,
         this.currentPage * this.perPage
       );
+    },
+    getArticlesBiSearch() {
+      axios
+        .get(this.url + "search/" + this.idsearch)
+        .then((res) => {
+          if (res.data.status == "success") {
+            this.articles = res.data.articles;
+            this.updateItems();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

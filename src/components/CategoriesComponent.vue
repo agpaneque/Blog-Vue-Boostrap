@@ -6,16 +6,16 @@
             <div class="row">
               <div class="col-sm-6">
                 <ul class="list-unstyled mb-0">
-                  <li><a href="#!">Web Design</a></li>
-                  <li><a href="#!">HTML</a></li>
-                  <li><a href="#!">Freebies</a></li>
+                  <li><router-link to="/SearchByCategorie/Web Design" >Web Design</router-link></li>
+                  <li><router-link :to="{ name: 'sbc', params: {idsearch: 'html'} }" >HTML</router-link></li>
+                  <li><router-link to="/SearchByCategorie/Freebies" >Freebies</router-link></li>
                 </ul>
               </div>
               <div class="col-sm-6">
                 <ul class="list-unstyled mb-0">
-                  <li><a href="#!">JavaScript</a></li>
-                  <li><a href="#!">CSS</a></li>
-                  <li><a href="#!">Tutorials</a></li>
+                  <li><router-link to="/SearchByCategorie/JavaScript" >JavaScript</router-link></li>
+                  <li><router-link to="/SearchByCategorie/CSS" >CSS</router-link></li>
+                  <li><router-link to="/SearchByCategorie/Tutorials" >Tutorials</router-link></li>
                 </ul>
               </div>
             </div>
